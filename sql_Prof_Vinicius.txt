@@ -1,0 +1,163 @@
+-- Tabela de Professores (12 professores)
+CREATE TABLE professores (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    especialidade VARCHAR(50)
+);
+
+-- Tabela de Disciplinas (36 disciplinas - 3 por professor)
+CREATE TABLE disciplinas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    carga_horaria INT,
+    professor_id INT,
+    FOREIGN KEY (professor_id) REFERENCES professores(id)
+);
+
+-- Tabela de Alunos (40 alunos)
+CREATE TABLE alunos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    data_nascimento DATE
+);
+
+-- Tabela de Matrículas (120 registros)
+CREATE TABLE matriculas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    aluno_id INT NOT NULL,
+    disciplina_id INT NOT NULL,
+    nota DECIMAL(4,2),
+    frequencia TINYINT,
+    semestre VARCHAR(10),
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+    FOREIGN KEY (disciplina_id) REFERENCES disciplinas(id)
+);
+
+-- Professores (12)
+INSERT INTO professores (nome, especialidade) VALUES
+('Dr. Silva', 'Matemática'),
+('Dra. Santos', 'Literatura'),
+('Dr. Oliveira', 'História'),
+('Dra. Costa', 'Biologia'),
+('Dr. Pereira', 'Física'),
+('Prof. Mendes', 'Química'),
+('Prof. Fernandes', 'Geografia'),
+('Prof. Rodrigues', 'Filosofia'),
+('Prof. Martins', 'Artes'),
+('Prof. Lima', 'Educação Física'),
+('Prof. Almeida', 'Sociologia'),
+('Prof. Ribeiro', 'Informática');
+
+-- Disciplinas (36 - 3 por professor)
+INSERT INTO disciplinas (nome, carga_horaria, professor_id) VALUES
+-- Dr. Silva (Matemática)
+('Cálculo I', 90, 1), ('Álgebra Linear', 60, 1), ('Geometria Analítica', 60, 1),
+-- Dra. Santos (Literatura)
+('Literatura Brasileira', 60, 2), ('Literatura Portuguesa', 60, 2), ('Teoria Literária', 45, 2),
+-- Dr. Oliveira (História)
+('História Antiga', 60, 3), ('História Medieval', 60, 3), ('História do Brasil', 60, 3),
+-- Dra. Costa (Biologia)
+('Genética', 75, 4), ('Ecologia', 60, 4), ('Biologia Marinha', 45, 4),
+-- Dr. Pereira (Física)
+('Física Quântica', 75, 5), ('Termodinâmica', 60, 5), ('Eletromagnetismo', 75, 5),
+-- Prof. Mendes (Química)
+('Química Orgânica', 75, 6), ('Química Inorgânica', 60, 6), ('Bioquímica', 75, 6),
+-- Prof. Fernandes (Geografia)
+('Geografia Física', 60, 7), ('Geografia Humana', 60, 7), ('Cartografia', 45, 7),
+-- Prof. Rodrigues (Filosofia)
+('Filosofia Antiga', 60, 8), ('Ética', 45, 8), ('Filosofia Política', 60, 8),
+-- Prof. Martins (Artes)
+('Artes Visuais', 60, 9), ('História da Arte', 60, 9), ('Teatro', 45, 9),
+-- Prof. Lima (Educação Física)
+('Esportes Coletivos', 60, 10), ('Fisiologia do Exercício', 60, 10), ('Dança', 45, 10),
+-- Prof. Almeida (Sociologia)
+('Sociologia Urbana', 60, 11), ('Sociologia Rural', 45, 11), ('Teoria Sociológica', 60, 11),
+-- Prof. Ribeiro (Informática)
+('Programação I', 90, 12), ('Banco de Dados', 75, 12), ('Redes de Computadores', 60, 12);
+
+-- Alunos (40)
+INSERT INTO alunos (nome, data_nascimento) VALUES
+('Ana Lima', '2005-03-15'), ('Bruno Alves', '2004-07-22'), ('Carla Rocha', '2005-01-30'),
+('Diego Moraes', '2004-11-10'), ('Eduarda Castro', '2005-05-18'), ('Felipe Gomes', '2004-09-25'),
+('Gabriela Nunes', '2005-02-14'), ('Hugo Lima', '2004-12-05'), ('Isabela Martins', '2005-04-01'),
+('João Pedro Almeida', '2004-08-12'), ('Larissa Silva', '2005-06-19'), ('Marcos Oliveira', '2004-03-22'),
+('Natália Costa', '2005-07-30'), ('Otávio Rocha', '2004-09-17'), ('Patrícia Lima', '2005-01-25'),
+('Renato Gomes', '2004-11-08'), ('Sandra Nunes', '2005-02-14'), ('Tiago Mendes', '2004-12-03'),
+('Vanessa Castro', '2005-05-11'), ('Wagner Pereira', '2004-10-29'), ('Yasmin Fernandes', '2005-03-07'),
+('Zélia Santos', '2004-07-15'), ('André Rodrigues', '2005-08-21'), ('Bianca Martins', '2004-06-13'),
+('Carlos Eduardo', '2005-09-27'), ('Daniela Alves', '2004-04-05'), ('Eduardo Henrique', '2005-10-10'),
+('Fernanda Souza', '2004-01-18'), ('Gustavo Oliveira', '2005-11-23'), ('Helena Costa', '2004-02-28'),
+('Igor Lima', '2005-12-12'), ('Juliana Pereira', '2004-05-20'), ('Leandro Silva', '2005-01-03'),
+('Mariana Torres', '2004-08-08'), ('Nelson Gomes', '2005-02-09'), ('Olivia Rocha', '2004-10-14'),
+('Paulo Ricardo', '2005-03-26'), ('Queila Santos', '2004-11-19'), ('Rafael Mendes', '2005-04-17'),
+('Tatiana Oliveira', '2004-09-02');
+
+-- Matrículas (120 registros)
+INSERT INTO matriculas (aluno_id, disciplina_id, nota, frequencia, semestre) VALUES
+-- Semestre 2023.1 (60 registros)
+(1,1,8.5,90,'2023.1'), (2,1,7.0,85,'2023.1'), (3,1,9.2,95,'2023.1'), (4,1,6.8,80,'2023.1'), (5,1,5.5,70,'2023.1'),
+(6,2,8.0,92,'2023.1'), (7,2,6.5,75,'2023.1'), (8,2,9.8,100,'2023.1'), (9,3,7.5,88,'2023.1'), (10,3,8.8,90,'2023.1'),
+(11,4,4.5,65,'2023.1'), (12,4,6.7,82,'2023.1'), (13,5,7.9,85,'2023.1'), (14,6,8.8,93,'2023.1'), (15,6,7.2,79,'2023.1'),
+(16,7,9.5,97,'2023.1'), (17,8,5.0,72,'2023.1'), (18,9,6.3,78,'2023.1'), (19,10,7.7,86,'2023.1'), (20,11,8.5,91,'2023.1'),
+(21,12,9.0,94,'2023.1'), (22,13,4.0,68,'2023.1'), (23,14,5.5,74,'2023.1'), (24,15,9.5,98,'2023.1'), (25,16,8.0,89,'2023.1'),
+(26,17,6.5,76,'2023.1'), (27,18,7.0,83,'2023.1'), (28,19,3.5,60,'2023.1'), (29,20,8.2,87,'2023.1'), (30,21,7.8,84,'2023.1'),
+(31,22,9.1,96,'2023.1'), (32,23,5.8,73,'2023.1'), (33,24,6.9,77,'2023.1'), (34,25,8.7,91,'2023.1'), (35,26,4.8,67,'2023.1'),
+(36,27,7.3,81,'2023.1'), (37,28,8.9,93,'2023.1'), (38,29,6.1,75,'2023.1'), (39,30,9.3,97,'2023.1'), (40,31,7.6,82,'2023.1'),
+(1,32,6.4,78,'2023.1'), (2,33,8.3,89,'2023.1'), (3,34,5.7,71,'2023.1'), (4,35,9.0,95,'2023.1'), (5,36,7.1,80,'2023.1'),
+(6,1,6.2,76,'2023.1'), (7,2,8.6,92,'2023.1'), (8,3,4.9,69,'2023.1'), (9,4,7.4,83,'2023.1'), (10,5,8.1,88,'2023.1'),
+(11,6,5.3,72,'2023.1'), (12,7,9.4,98,'2023.1'), (13,8,6.8,79,'2023.1'), (14,9,8.4,90,'2023.1'), (15,10,3.8,62,'2023.1'),
+
+-- Semestre 2023.2 (60 registros)
+(16,11,7.9,85,'2023.2'), (17,12,9.6,99,'2023.2'), (18,13,5.9,74,'2023.2'), (19,14,8.0,86,'2023.2'), (20,15,6.7,78,'2023.2'),
+(21,16,7.5,82,'2023.2'), (22,17,4.7,66,'2023.2'), (23,18,8.8,92,'2023.2'), (24,19,6.0,75,'2023.2'), (25,20,9.2,97,'2023.2'),
+(26,21,7.0,80,'2023.2'), (27,22,5.6,73,'2023.2'), (28,23,8.5,91,'2023.2'), (29,24,6.9,77,'2023.2'), (30,25,4.5,64,'2023.2'),
+(31,26,7.8,84,'2023.2'), (32,27,9.7,100,'2023.2'), (33,28,5.4,70,'2023.2'), (34,29,8.3,89,'2023.2'), (35,30,6.6,76,'2023.2'),
+(36,31,7.2,81,'2023.2'), (37,32,9.1,96,'2023.2'), (38,33,4.8,65,'2023.2'), (39,34,7.7,85,'2023.2'), (40,35,8.9,94,'2023.2'),
+(1,36,5.1,68,'2023.2'), (2,1,8.7,93,'2023.2'), (3,2,6.3,77,'2023.2'), (4,3,9.5,98,'2023.2'), (5,4,7.8,83,'2023.2'),
+(6,5,4.6,63,'2023.2'), (7,6,8.1,88,'2023.2'), (8,7,6.4,75,'2023.2'), (9,8,9.3,97,'2023.2'), (10,9,5.8,72,'2023.2'),
+(11,10,7.3,82,'2023.2'), (12,11,8.4,90,'2023.2'), (13,12,6.1,74,'2023.2'), (14,13,9.0,95,'2023.2'), (15,14,4.9,67,'2023.2'),
+(16,15,7.6,84,'2023.2'), (17,16,8.8,93,'2023.2'), (18,17,5.5,71,'2023.2'), (19,18,8.2,89,'2023.2'), (20,19,6.8,79,'2023.2'),
+(21,20,9.4,99,'2023.2'), (22,21,7.1,80,'2023.2'), (23,22,5.0,66,'2023.2'), (24,23,8.6,92,'2023.2'), (25,24,6.7,78,'2023.2');
+-- 1. Listar todos os alunos ordenados por nomes
+SELECT nome
+FROM alunos
+ORDER BY nome ASC;
+-- 2. Mostrar todas as disciplinas ministradas por cada professor
+SELECT p.nome AS professor,
+       d.nome AS disciplina
+FROM professores p
+JOIN disciplinas d ON p.id = d.professor_id
+ORDER BY p.nome, d.nome;
+-- 3. Mostrar todas as disciplinas cursadas pela aluna 'Ana Lima' com suas notas
+SELECT a.nome AS aluna,
+       d.nome AS disciplina,
+       m.nota,
+       m.semestre
+FROM alunos a
+JOIN matriculas m ON a.id = m.aluno_id
+JOIN disciplinas d ON m.disciplina_id = d.id
+WHERE a.nome = 'Ana Lima'
+ORDER BY m.semestre, d.nome;
+-- 4. Calcular a média de notas por área de especialização dos professores
+SELECT p.especialidade,
+       ROUND(AVG(m.nota), 2) AS media_notas
+FROM professores p
+JOIN disciplinas d ON p.id = d.professor_id
+JOIN matriculas m ON d.id = m.disciplina_id
+GROUP BY p.especialidade
+ORDER BY media_notas DESC;
+-- 5. Identificar alunos com desempenho acima da média em cada disciplina
+SELECT a.nome AS aluno,
+       d.nome AS disciplina,
+       m.nota,
+       ROUND(avg_disc.media_disciplina, 2) AS media_disciplina
+FROM matriculas m
+JOIN alunos a ON m.aluno_id = a.id
+JOIN disciplinas d ON m.disciplina_id = d.id
+JOIN (
+    SELECT disciplina_id, AVG(nota) AS media_disciplina
+    FROM matriculas
+    GROUP BY disciplina_id
+) AS avg_disc ON m.disciplina_id = avg_disc.disciplina_id
+WHERE m.nota > avg_disc.media_disciplina
+ORDER BY d.nome, m.nota DESC;
